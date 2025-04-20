@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tranzio MVP – The Netflix of Education 👑📚</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-xxxxxxxx" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 2rem 4rem;
+      background: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #e50914;
+      font-weight: 900;
+    }
+
+    nav a {
+      margin-left: 2rem;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .hero {
+      padding: 4rem;
+      background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    .translate-box {
+      background: #1e1e1e;
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 3rem auto;
+      width: 80%;
+      max-width: 800px;
+      box-shadow: 0 0 30px rgba(255, 0, 80, 0.1);
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      background: #121212;
+      border: none;
+      color: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      font-size: 1rem;
+      resize: none;
+      margin-bottom: 1rem;
+    }
+
+    .language-selector {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .language-button {
+      background-color: #e50914;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .language-list {
+      display: none;
+      max-height: 300px;
+      overflow-y: auto;
+      position: absolute;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      margin-top: 0.5rem;
+      list-style: none;
+      padding: 0;
+      width: 200px;
+      z-index: 1000;
+      animation: fadeSlide 0.3s ease-out;
+      box-shadow: 0 10px 30px rgba(255, 51, 69, 0.3);
+    }
+
+    .language-list li {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #333;
+      transition: background 0.2s;
+    }
+
+    .language-list li:hover {
+      background-color: #333;
+      transform: scale(1.02);
+    }
+
+    .flag {
+      margin-right: 0.5rem;
+    }
+
+    .pretty-btn {
+      width: 100%;
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #e50914, #ff3345);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .pretty-btn:hover {
+      background: linear-gradient(135deg, #ff3345, #ff6670);
+      transform: scale(1.03);
+    }
+
+    #result {
+      margin-top: 2rem;
+      background: #2a2a2a;
+      padding: 1.5rem;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      background: #111;
+      color: #666;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Tranzio 📚</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Courses</a>
+      <a href="#">Languages</a>
+      <a href="#">Profile</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Welcome to the Netflix of Education 🎬✨</h2>
+    <p>Learn and translate in 150+ languages like royalty 👑</p>
+  </section>
+
+  <div class="translate-box">
+    <textarea id="inputText" placeholder="Enter your text, royal learner..."></textarea>
+    <div class="language-selector">
+      <button id="languageButton" class="language-button">🌐 Select Language</button>
+      <ul id="languageList" class="language-list">
+        <li data-lang="af"><span class="flag">🇿🇦</span> Afrikaans</li>
+<li data-lang="ak"><span class="flag">🇬🇭</span> Akan</li>
+<li data-lang="sq"><span class="flag">🇦🇱</span> Albanian</li>
+<li data-lang="am"><span class="flag">🇪🇹</span> Amharic</li>
+<li data-lang="ar"><span class="flag">🇸🇦</span> Arabic</li>
+<li data-lang="an"><span class="flag">🇪🇸</span> Aragonese</li>
+<li data-lang="hy"><span class="flag">🇦🇲</span> Armenian</li>
+<li data-lang="as"><span class="flag">🇮🇳</span> Assamese</li>
+<li data-lang="av"><span class="flag">🇷🇺</span> Avaric</li>
+<li data-lang="ae"><span class="flag">🏛️</span> Avestan</li>
+<li data-lang="ay"><span class="flag">🇧🇴</span> Aymara</li>
+<li data-lang="az"><span class="flag">🇦🇿</span> Azerbaijani</li>
+<li data-lang="bm"><span class="flag">🇲🇱</span> Bambara</li>
+<li data-lang="ba"><span class="flag">🇷🇺</span> Bashkir</li>
+<li data-lang="eu"><span class="flag">🇪🇸</span> Basque</li>
+<li data-lang="be"><span class="flag">🇧🇾</span> Belarusian</li>
+<li data-lang="bn"><span class="flag">🇧🇩</span> Bengali</li>
+<li data-lang="bi"><span class="flag">🇻🇺</span> Bislama</li>
+<li data-lang="bs"><span class="flag">🇧🇦</span> Bosnian</li>
+<li data-lang="br"><span class="flag">🇫🇷</span> Breton</li>
+<li data-lang="bg"><span class="flag">🇧🇬</span> Bulgarian</li>
+<li data-lang="my"><span class="flag">🇲🇲</span> Burmese</li>
+<li data-lang="ca"><span class="flag">🇪🇸</span> Catalan</li>
+<li data-lang="km"><span class="flag">🇰🇭</span> Central Khmer</li>
+<li data-lang="ch"><span class="flag">🇲🇵</span> Chamorro</li>
+<li data-lang="ce"><span class="flag">🇷🇺</span> Chechen</li>
+<li data-lang="cu"><span class="flag">✝️</span> Church Slavic</li>
+<li data-lang="cv"><span class="flag">🇷🇺</span> Chuvash</li>
+<li data-lang="kw"><span class="flag">🏴</span> Cornish</li>
+<li data-lang="co"><span class="flag">🇫🇷</span> Corsican</li>
+<li data-lang="hr"><span class="flag">🇭🇷</span> Croatian</li>
+<li data-lang="cs"><span class="flag">🇨🇿</span> Czech</li>
+<li data-lang="da"><span class="flag">🇩🇰</span> Danish</li>
+<li data-lang="dv"><span class="flag">🇲🇻</span> Divehi</li>
+<li data-lang="nl"><span class="flag">🇳🇱</span> Dutch</li>
+<li data-lang="dz"><span class="flag">🇧🇹</span> Dzongkha</li>
+<li data-lang="en"><span class="flag">🇬🇧</span> English</li>
+<li data-lang="eo"><span class="flag">🌍</span> Esperanto</li>
+<li data-lang="et"><span class="flag">🇪🇪</span> Estonian</li>
+<li data-lang="ee"><span class="flag">🇹🇬</span> Ewe</li>
+<li data-lang="fo"><span class="flag">🇫🇴</span> Faroese</li>
+<li data-lang="fj"><span class="flag">🇫🇯</span> Fijian</li>
+<li data-lang="fi"><span class="flag">🇫🇮</span> Finnish</li>
+<li data-lang="fr"><span class="flag">🇫🇷</span> French</li>
+<li data-lang="ff"><span class="flag">🌍</span> Fulah</li>
+<li data-lang="gd"><span class="flag">🏴</span> Gaelic (Scottish)</li>
+<li data-lang="gl"><span class="flag">🇪🇸</span> Galician</li>
+<li data-lang="lg"><span class="flag">🇺🇬</span> Ganda</li>
+<li data-lang="ka"><span class="flag">🇬🇪</span> Georgian</li>
+<li data-lang="de"><span class="flag">🇩🇪</span> German</li>
+<li data-lang="el"><span class="flag">🇬🇷</span> Greek</li>
+<li data-lang="gn"><span class="flag">🇵🇾</span> Guarani</li>
+<li data-lang="gu"><span class="flag">🇮🇳</span> Gujarati</li>
+<li data-lang="ht"><span class="flag">🇭🇹</span> Haitian</li>
+<li data-lang="ha"><span class="flag">🇳🇬</span> Hausa</li>
+<li data-lang="he"><span class="flag">🇮🇱</span> Hebrew</li>
+<li data-lang="hz"><span class="flag">🇳🇦</span> Herero</li>
+<li data-lang="hi"><span class="flag">🇮🇳</span> Hindi</li>
+<li data-lang="ho"><span class="flag">🇵🇬</span> Hiri Motu</li>
+<li data-lang="hu"><span class="flag">🇭🇺</span> Hungarian</li>
+<li data-lang="is"><span class="flag">🇮🇸</span> Icelandic</li>
+<li data-lang="io"><span class="flag">🌍</span> Ido</li>
+<li data-lang="ig"><span class="flag">🇳🇬</span> Igbo</li>
+<li data-lang="id"><span class="flag">🇮🇩</span> Indonesian</li>
+<li data-lang="ia"><span class="flag">🌍</span> Interlingua</li>
+<li data-lang="ie"><span class="flag">🌍</span> Interlingue</li>
+<li data-lang="iu"><span class="flag">🇨🇦</span> Inuktitut</li>
+<li data-lang="ik"><span class="flag">🇺🇸</span> Inupiaq</li>
+<li data-lang="ga"><span class="flag">🇮🇪</span> Irish</li>
+<li data-lang="it"><span class="flag">🇮🇹</span> Italian</li>
+<li data-lang="ja"><span class="flag">🇯🇵</span> Japanese</li>
+<li data-lang="jv"><span class="flag">🇮🇩</span> Javanese</li>
+<li data-lang="kl"><span class="flag">🇬🇱</span> Kalaallisut</li>
+<li data-lang="kn"><span class="flag">🇮🇳</span> Kannada</li>
+<li data-lang="kr"><span class="flag">🇳🇬</span> Kanuri</li>
+      </ul>
+    </div>
+
+    <button class="pretty-btn" onclick="translateText()">✨ Translate Now</button>
+
+    <div id="result"></div>
+  </div>
+
+  <footer>
+    Made with ❤️ for Parth | Tranzio MVP – Rewriting education.
+  </footer>
+
+  <style>
+    body.light-mode {
+      background-color: #fefefe;
+      color: #111;
+    }
+  
+    .translate-box.light-mode {
+      background: #ffffff;
+      border: 2px solid #ddd;
+    }
+  
+    .pretty-btn {
+      margin: 6px;
+      padding: 8px 14px;
+      font-size: 16px;
+      border-radius: 10px;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+  
+    body.light-mode .pretty-btn {
+      background-color: #ddd;
+      color: black;
+    }
+  </style>
+  
+  <script>
+    const languageButton = document.getElementById("languageButton");
+    const languageList = document.getElementById("languageList");
+    const inputText = document.getElementById("inputText");
+    const resultBox = document.getElementById("result");
+  
+    let selectedLang = "hi"; // Default to Hindi
+    let sourceLang = "en"; // Default source
+  
+    // Dropdown toggle
+    languageButton.addEventListener("click", () => {
+      languageList.style.display = languageList.style.display === "block" ? "none" : "block";
+    });
+  
+    // Language select
+    languageList.querySelectorAll("li").forEach(item => {
+      item.addEventListener("click", () => {
+        selectedLang = item.getAttribute("data-lang");
+        languageButton.innerHTML = `${item.innerHTML}`;
+        languageList.style.display = "none";
+      });
+    });
+  
+    // Translation
+    async function translateText() {
+      const text = inputText.value.trim();
+      if (!text) {
+        resultBox.textContent = "⚠️ Please enter some text first.";
+        return;
+      }
+  
+      resultBox.textContent = "⏳ Translating...";
+  
+      try {
+        const apiURL = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${selectedLang}`;
+        const response = await fetch(apiURL);
+        const data = await response.json();
+  
+        const translated = data.responseData.translatedText;
+  
+        if (translated && translated.trim().length > 1) {
+          resultBox.setAttribute("data-pure", translated); // Store clean text for speaking
+          resultBox.textContent = `✅ Translated Text:\n${translated}`;
+        } else {
+          resultBox.textContent = "❌ Translation failed or returned empty result.";
+        }
+      } catch (error) {
+        resultBox.textContent = "❌ Translation error. Try again later.";
+      }
+    }
+  
+    // Translate on button click
+    document.querySelector(".pretty-btn").addEventListener("click", translateText);
+  
+    // Text-to-Speech 🔊
+    const speakText = (text) => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(utterance);
+    };
+  
+    const ttsBtn = document.createElement("button");
+    ttsBtn.innerHTML = "🔊 Speak";
+    ttsBtn.classList.add("pretty-btn");
+    ttsBtn.onclick = () => {
+      const pureText = resultBox.getAttribute("data-pure") || "";
+      if (pureText.trim()) speakText(pureText);
+      else alert("Nothing to speak yet 😅");
+    };
+    document.querySelector(".translate-box").appendChild(ttsBtn);
+  
+    // Copy 📋
+    const copyBtn = document.createElement("button");
+    copyBtn.innerHTML = "📋 Copy";
+    copyBtn.classList.add("pretty-btn");
+    copyBtn.onclick = () => {
+      const copyText = resultBox.getAttribute("data-pure") || resultBox.innerText;
+      navigator.clipboard.writeText(copyText);
+      alert("Copied to clipboard! ✅");
+    };
+    document.querySelector(".translate-box").appendChild(copyBtn);
+  
+    // Light / Dark Mode 🌙☀️
+    const toggleModeBtn = document.createElement("button");
+    toggleModeBtn.innerHTML = "🌙 Toggle Mode";
+    toggleModeBtn.classList.add("pretty-btn");
+    toggleModeBtn.onclick = () => {
+      document.body.classList.toggle("light-mode");
+      document.querySelector(".translate-box").classList.toggle("light-mode");
+      toggleModeBtn.innerHTML = document.body.classList.contains("light-mode") ? "☀️ Dark Mode" : "🌙 Light Mode";
+    };
+    document.querySelector(".translate-box").appendChild(toggleModeBtn);
+  </script>  
+</body>
+
+</html>
+
