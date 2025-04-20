@@ -22,5 +22,7 @@ def translate_text():
         return jsonify({"error": str(e)})
 
 if __name__ == "__main__":
-    print("👑 Tranzio MVP: Language Queen is now LIVE on http://localhost:9347 👑")
-    app.run(debug=True, port=9347)
+    port = int(os.environ.get("PORT", 9347))
+    print(f"👑 Tranzio MVP: Language Queen is now LIVE on http://localhost:{port} 👑")
+    app.run(host="0.0.0.0", port=port, debug=True)
+
